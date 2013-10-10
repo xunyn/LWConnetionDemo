@@ -1,6 +1,6 @@
 //
 //  LWFileHandle.h
-//  LWConnetionDemo
+//  LWConnection
 //
 //  Created by 寻 亚楠 on 13-9-2.
 //  Copyright (c) 2013年 寻 亚楠. All rights reserved.
@@ -12,14 +12,10 @@
 @class LWRequest;
 
 @interface LWFileHandle : NSObject{
-
-    NSFileHandle *writeFileHandle;
-    NSFileHandle *readFileHandle;
-    NSFileManager *manager;
-    LWRequest *request;
+    
 
 }
-@property (nonatomic,retain) NSString *doneFilePath;
+@property (nonatomic,copy) NSString *doneFilePath;
 @property (nonatomic,copy) NSString *writingFilePath;
 
 

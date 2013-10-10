@@ -1,12 +1,13 @@
 //
-//  MyDownloader.h
-//  MultDownloader
+//  LWConnectionOperation.h
+//  LWConnection
 //
-//  Created by Marcus on 12/4/12.
-//  Copyright (c) 2012 Marcus. All rights reserved.
+//  Created by 寻 亚楠 on 13-8-28.
+//  Copyright (c) 2013年 寻 亚楠. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import "LWRequest.h"
 #import "LWResponse.h"
 #import "LWFileHandle.h"
 
@@ -24,7 +25,6 @@
 @interface LWConnectionOpertation : NSOperation {
     
     NSURLConnection *connection;
-    NSString *path;
     NSMutableData *responseData;
     BOOL isFinished;
     unsigned long long startOffset;
@@ -32,9 +32,9 @@
     
 }
 
-@property (nonatomic, retain) LWRequest *request;
-@property (nonatomic, retain) LWResponse *response;
-@property (nonatomic, weak) NSObject <LWConnectionDelegate> *delegate;
+@property (nonatomic, LW_STRONG) LWRequest *request;
+@property (nonatomic, LW_STRONG) LWResponse *response;
+@property (nonatomic, LW_WEAK) NSObject <LWConnectionDelegate> *delegate;
 
 
 

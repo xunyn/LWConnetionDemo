@@ -1,21 +1,22 @@
 //
-//  MyResponse.h
-//  MultDownloader
+//  LWResponse.h
+//  LWConnection
 //
-//  Created by Marcus on 12/4/12.
-//  Copyright (c) 2012 Marcus. All rights reserved.
+//  Created by 寻 亚楠 on 13-8-28.
+//  Copyright (c) 2013年 寻 亚楠. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import "LWRequest.h"
 
 @interface LWResponse : NSObject
 
 @property (nonatomic, copy) NSString *responseTarget;
-@property (nonatomic, strong) NSData *responseData;
-@property (nonatomic, assign) int expectedSize;
-@property (nonatomic, strong) NSError *error;
-@property (nonatomic, assign) float downloadRate;
-@property (nonatomic, strong) NSURLResponse *response;
+@property (nonatomic, LW_STRONG) NSData *responseData;
+@property (nonatomic) int expectedSize;
+@property (nonatomic, LW_STRONG) NSError *error;
+@property (nonatomic) float downloadRate;
+@property (nonatomic, LW_STRONG) NSURLResponse *response;
 
 
 @end

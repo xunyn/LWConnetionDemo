@@ -33,6 +33,17 @@
     return self;
 }
 
+- (void)dealloc{
+    #if !__has_feature(objc_arc)
+    [requestTarget release];
+    [requestURL release];
+    [request release];
+    [finishBlock release];
+    [inprogressBlock release];
+    [super dealloc];
+    #endif
+}
+
 - (id)initWithTraget:(NSString *)target requestURL:(NSString *)url delegate:(id<LWConnectionDelegate>)delegate_{
 
         return [self initWithTarget:target requestURL:url isPersistance:NO delegate:delegate_ finishHandler:nil inProgressHandler:nil];
@@ -59,15 +70,15 @@
         }else{
             persistentType = NOT_SAVE;
         }
-        requestTarget = target;
+        self.requestTarget = target;
         
         if (delegate_) {
             delegate = delegate_;
             callBackType = DELEGATE_TYPE;
         }
         else {
-            finishBlock = finishBlock_;
-            inprogressBlock = progressBlock_;
+            self.finishBlock = finishBlock_;
+            self.inprogressBlock = progressBlock_;
             callBackType = BLOCK_TYPE;
         }
     }

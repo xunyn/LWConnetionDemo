@@ -12,7 +12,6 @@
 
 @interface LWConnectionOpertation ()
 
-
 @end
 
 @implementation LWConnectionOpertation
@@ -50,24 +49,32 @@
     return self;
 }
 
-
--(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response_ {
+- (void)dealloc{
+    #if !__has_feature(objc_arc)
+    [connection release];
+    [fileHandle release];
+    [request release];
+    [response release];
+    [super dealloc];
+    #endif
+}
+#pragma mark -- NS URL Connetion Delegate Protocal
+- (void)connection:(NSURLConnection *)connection_ didReceiveResponse:(NSURLResponse *)response_ {
     if ([[((NSHTTPURLResponse *)response_) allHeaderFields] objectForKey:@"Content-Length"]) {
         response.expectedSize = [[[((NSHTTPURLResponse *)response_) allHeaderFields] objectForKey:@"Content-Length"] integerValue];
     }
     response.response = response_;
     [fileHandle createFile];
     responseData = [[NSMutableData alloc] init];
- 
 }
 
--(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
-    [responseData appendData:data];
+- (void)connection:(NSURLConnection *)connection_ didReceiveData:(NSData *)data_{
+    [responseData appendData:data_];
     NSLog(@"%@:download complete %f / 100",fileHandle.writingFilePath,([responseData length]+startOffset)/(float)(response.expectedSize+startOffset) *100.0);
     response.downloadRate = ([responseData length]+startOffset)/(float)(response.expectedSize+startOffset);
 
     if (request.persistentType == SAVE_TO_FILE) {
-       [fileHandle writeData:data];        
+       [fileHandle writeData:data_];
     }
     
     if (request.callBackType == DELEGATE_TYPE) {
@@ -87,7 +94,7 @@
 
 }
 
--(void)connectionDidFinishLoading:(NSURLConnection *)_connection{
+-(void)connectionDidFinishLoading:(NSURLConnection *)connection_{
     
     response.responseData = responseData;
     isFinished = YES;
@@ -107,14 +114,14 @@
     
     
     }
-    connection = nil;
+    //connection = nil;
     [fileHandle closeFile];
 }
 
 -(void)connection:(NSURLConnection *)connection_ didFailWithError:(NSError *)error{
     //TDD wap error here
     [response setError:error];
-    connection_ = nil;
+    //connection_ = nil;
     
     if (request.callBackType == DELEGATE_TYPE) {
         if (delegate && [delegate respondsToSelector:@selector(downloadFinished:)]) {

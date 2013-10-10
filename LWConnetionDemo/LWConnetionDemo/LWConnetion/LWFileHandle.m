@@ -8,16 +8,41 @@
 
 #import "LWFileHandle.h"
 
+@interface LWFileHandle ()
+@property (nonatomic,LW_STRONG) NSFileManager *manager;
+@property (nonatomic,LW_STRONG) NSFileHandle *writeFileHandle;
+@property (nonatomic,LW_STRONG) NSFileHandle *readFileHandle;
+@property (nonatomic,LW_STRONG) LWRequest *request;
+
+@end
+
 @implementation LWFileHandle
+@synthesize manager;
+@synthesize writeFileHandle;
+@synthesize readFileHandle;
+@synthesize request;
+@synthesize doneFilePath;
+@synthesize writingFilePath;
 
 - (id)initWithRequest:(LWRequest*)re{
     self = [super init];
     if (self) {        
-        request = re;
+        self.request = re;
         [self setFilePathWithRequestURL:[request.request.URL absoluteString]];
-        manager = [NSFileManager defaultManager];
+        self.manager = [NSFileManager defaultManager];
     }
     return self;
+}
+- (void)dealloc{
+    #if !__has_feature(objc_arc)
+    [manager release];
+    [request release];
+    [writeFileHandle release];
+    [readFileHandle release];
+    [doneFilePath release];
+    [writingFilePath release];
+    [super dealloc];
+    #endif
 }
 
 - (void)writeData:(NSData*)data{
@@ -30,22 +55,22 @@
 
     [readFileHandle closeFile];
     [writeFileHandle closeFile];
-    [self fileDone:_writingFilePath];
+    [self fileDone:writingFilePath];
 }
 
 
 - (void) fileDone:(NSString *)path{
 
-    _doneFilePath = [path stringByAppendingPathExtension:@"done"];
+    self.doneFilePath = [path stringByAppendingPathExtension:@"done"];
     NSError *error;
-    //判断是否存在
-    if ([manager fileExistsAtPath:_doneFilePath]) {
-        [manager removeItemAtPath:_doneFilePath error:&error];
+    //file exist or not
+    if ([manager fileExistsAtPath:doneFilePath]) {
+        [manager removeItemAtPath:doneFilePath error:&error];
     }else{
-        NSLog(@"file not exist at path %@",_doneFilePath);
+        NSLog(@"file not exist at path %@",doneFilePath);
     }
     
-    if ([manager moveItemAtPath:_writingFilePath toPath:_doneFilePath error:&error] ){
+    if ([manager moveItemAtPath:writingFilePath toPath:doneFilePath error:&error] ){
         
     }else{
         NSLog(@"file manger move error %@",error);
@@ -61,22 +86,22 @@
 - (void) setFilePathWithRequestURL:(NSString *)url {
     NSArray *urlcomponent = [url componentsSeparatedByString:@"/"];
     NSString *fileName = [urlcomponent lastObject];
-    _writingFilePath = [[self documentPath] stringByAppendingPathComponent:fileName];
-    writeFileHandle = [NSFileHandle fileHandleForWritingAtPath:_writingFilePath];
+    self.writingFilePath = [[self documentPath] stringByAppendingPathComponent:fileName];
+    self.writeFileHandle = [NSFileHandle fileHandleForWritingAtPath:writingFilePath];
     [writeFileHandle seekToFileOffset:[self getStartOffSetWithPath]];
 
 }
 - (void)createFile{
-    if (![[NSFileManager defaultManager] fileExistsAtPath:_writingFilePath]) {
-        [manager createFileAtPath:_writingFilePath contents:nil attributes:nil];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:writingFilePath]) {
+        [manager createFileAtPath:writingFilePath contents:nil attributes:nil];
     }
 }
 
 - (unsigned long long)getStartOffSetWithPath{
-    if(_writingFilePath)
+    if(writingFilePath)
     {
-        if ([[NSFileManager defaultManager] fileExistsAtPath:_writingFilePath]) {
-            readFileHandle = [NSFileHandle fileHandleForReadingAtPath:_writingFilePath];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:writingFilePath]) {
+            self.readFileHandle = [NSFileHandle fileHandleForReadingAtPath:writingFilePath];
             return [[readFileHandle readDataToEndOfFile] length];
         }
         else{

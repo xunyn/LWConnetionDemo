@@ -16,11 +16,11 @@
 		DF0344D017CE060B007E38F9 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = DF0344CF17CE060B007E38F9 /* Default.png */; };
 		DF0344D217CE060B007E38F9 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DF0344D117CE060B007E38F9 /* Default@2x.png */; };
 		DF0344D417CE060B007E38F9 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DF0344D317CE060B007E38F9 /* Default-568h@2x.png */; };
-		DF0344E317CE0662007E38F9 /* LWConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0344DC17CE0662007E38F9 /* LWConnectionManager.m */; };
-		DF0344E417CE0662007E38F9 /* LWConnectionOpertation.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0344DE17CE0662007E38F9 /* LWConnectionOpertation.m */; };
-		DF0344E517CE0662007E38F9 /* LWRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0344E017CE0662007E38F9 /* LWRequest.m */; };
-		DF0344E617CE0662007E38F9 /* LWResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0344E217CE0662007E38F9 /* LWResponse.m */; };
-		DF444C7B17D471F40010ADB2 /* LWFileHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = DF444C7A17D471F40010ADB2 /* LWFileHandle.m */; };
+		DF0344E317CE0662007E38F9 /* LWConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0344DC17CE0662007E38F9 /* LWConnectionManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		DF0344E417CE0662007E38F9 /* LWConnectionOpertation.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0344DE17CE0662007E38F9 /* LWConnectionOpertation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		DF0344E517CE0662007E38F9 /* LWRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0344E017CE0662007E38F9 /* LWRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		DF0344E617CE0662007E38F9 /* LWResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = DF0344E217CE0662007E38F9 /* LWResponse.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		DF444C7B17D471F40010ADB2 /* LWFileHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = DF444C7A17D471F40010ADB2 /* LWFileHandle.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		DF444C7F17D482410010ADB2 /* DownLoadTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF444C7D17D482410010ADB2 /* DownLoadTableViewController.m */; };
 		DF444C8017D482410010ADB2 /* DownLoadTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF444C7E17D482410010ADB2 /* DownLoadTableViewController.xib */; };
 		DF444C8317D483D00010ADB2 /* DownLoadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF444C8217D483D00010ADB2 /* DownLoadTableViewCell.m */; };

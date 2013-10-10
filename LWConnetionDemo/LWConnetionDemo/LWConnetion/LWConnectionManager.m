@@ -36,8 +36,15 @@ static LWConnectionManager *instance;
     return self;
 }
 
+- (void)dealloc{
+#if !__has_feature(objc_arc)
+    [downloadQueue release];
+    [super dealloc];
+#endif
+}
+
 - (void)addRequest:(LWRequest *)reqeust {
-    LWConnectionOpertation *downloader = [[LWConnectionOpertation alloc] initWithRequest:reqeust];
+    LWConnectionOpertation *downloader = LW_AUTORELEASE([[LWConnectionOpertation alloc] initWithRequest:reqeust]);
     [downloadQueue addOperation:downloader];
     i ++;
 }
@@ -53,6 +60,7 @@ static LWConnectionManager *instance;
     re.responseTarget = request.requestTarget;
     return re;
 }
+
 
 
 @end
