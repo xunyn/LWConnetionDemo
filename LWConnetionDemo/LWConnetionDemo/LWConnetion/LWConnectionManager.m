@@ -43,6 +43,12 @@ static LWConnectionManager *instance;
 #endif
 }
 
+- (void)setMaxConcurrentOperationCount:(int)max{
+    if (max >0) {
+        downloadQueue.maxConcurrentOperationCount = max;
+    }
+}
+
 - (void)addRequest:(LWRequest *)reqeust {
     LWConnectionOpertation *downloader = LW_AUTORELEASE([[LWConnectionOpertation alloc] initWithRequest:reqeust]);
     [downloadQueue addOperation:downloader];

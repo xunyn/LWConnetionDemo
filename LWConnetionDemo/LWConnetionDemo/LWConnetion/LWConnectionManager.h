@@ -21,7 +21,8 @@
 
 + (LWConnectionManager *)defaultManager;
 
-- (void)addRequest:(LWRequest *)reqeust;
+- (void)setMaxConcurrentOperationCount:(int)max;
 
+- (void)addRequest:(LWRequest *)reqeust;
 - (LWResponse *)addSynchronizedReqeust:(LWRequest *)request;
 @end
